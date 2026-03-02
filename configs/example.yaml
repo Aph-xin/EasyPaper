@@ -1,0 +1,81 @@
+# EasyPaper agent config template — copy to your own file and fill in api_key.
+# Do NOT commit real API keys. Use AGENT_CONFIG_PATH to point to your config.
+#
+# LLM: used by paper_parser, writer, typesetter, metadata, reviewer, planner.
+# VLM: used by vlm_review for PDF layout check (vision-capable model).
+agents:
+  - name: paper_parser
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+
+  - name: template_parser
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+
+  - name: commander
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+
+  - name: writer
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+    writer_config:
+      max_review_iterations: 2
+      enable_review: true
+      enable_tools: true
+      available_tools:
+        - validate_citations
+        - count_words
+        - check_key_points
+
+  - name: typesetter
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+
+  - name: metadata
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+    metadata_config:
+      enable_mini_review: true
+      max_review_iterations: 2
+
+  - name: reviewer
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+
+  - name: planner
+    model:
+      model_name: qwen3-next-80b-a3b-instruct
+      api_key: "your_llm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+
+  - name: vlm_review
+    model:
+      # Must be a vision-capable model
+      model_name: qwen3-vl-235b-a22b-thinking
+      api_key: "your_vlm_api_key"
+      base_url: https://cloud.infini-ai.com/maas/v1
+    vlm_review_config:
+      enabled: true
+      provider: openai
+      render_dpi: 150
+      max_pages_to_analyze: 12
+      check_overflow: true
+      check_underfill: true
+      check_layout: false
+      min_fill_percentage: 0.85
+      max_blank_area: 0.15
